@@ -10,18 +10,13 @@ public class GetResult {
         Connection connection = null;
         Statement statement = null;
         ResultSet result = null;
-
         String sql = "select * from user";
-
         Vector<com.user.User> userArrayList = new Vector<>();
-
         try {
-
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql:///user_management_system?useSSL=false&characterEncoding=utf8", "root", "/*-w123l/*-");
             statement = connection.createStatement();
             result = statement.executeQuery(sql);
-
             while (result.next()) {
                 int index = result.getInt(1);
                 String name = result.getString(2);
@@ -31,25 +26,10 @@ public class GetResult {
                 com.user.User user = new com.user.User(index,name, age, address, password);
                 userArrayList.add(user);
             }
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
+            closeConnectionAndStatement(connection, statement);
             if (result != null) {
                 try {
                     result.close();
@@ -58,7 +38,23 @@ public class GetResult {
                 }
             }
         }
-
         return userArrayList;
+    }
+
+    static void closeConnectionAndStatement(Connection connection, Statement statement) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        if (statement != null) {
+            try {
+                statement.close();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 }

@@ -7,13 +7,9 @@ import java.sql.SQLException;
 
 public class ChangeUser {
     public static void change(int index, String name, int age, String address, String password) {
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        //language=MySQL
         String sql = "update user set name = ? , age = ? , address = ? , password = ? where `index` = ?";
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql:///user_management_system?useSSL=false&characterEncoding=utf8", "root", "/*-w123l/*-");
@@ -24,26 +20,15 @@ public class ChangeUser {
             preparedStatement.setObject(4, password);
             preparedStatement.setObject(5, index);
             preparedStatement.executeUpdate();
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
+            closeConnectionAndStatement(connection, preparedStatement);
         }
+    }
+
+    static void closeConnectionAndStatement(Connection connection, PreparedStatement preparedStatement) {
+        GetResult.closeConnectionAndStatement(connection, preparedStatement);
     }
 }
 

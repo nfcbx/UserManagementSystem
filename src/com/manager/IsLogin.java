@@ -5,16 +5,12 @@ import java.sql.*;
 public class IsLogin {
 
     public static boolean isLogin(String username, String password) {
-
         String mql_url = "jdbc:mysql:///user_management_system?useSSL=false&characterEncoding=utf8";
         String mql_user = "root";
         String mql_password = "/*-w123l/*-";
-
         String sql = "select username ,password from manager where username = ? and password = ?";
-
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(mql_url, mql_user, mql_password);
@@ -25,10 +21,8 @@ public class IsLogin {
             while (resultSet.next()) {
                 return true;
             }
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
         } finally {
             try {
                 if (connection != null) {

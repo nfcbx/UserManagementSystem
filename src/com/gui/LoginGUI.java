@@ -21,16 +21,12 @@ public class LoginGUI {
     private JPanel PasswordTextPanel;
     private JPanel LoginButtonPanel;
     private JPanel ExitButtonPanel;
-    static JFrame frame = new JFrame("管理员登录");
+    static final JFrame frame = new JFrame("管理员登录");
 
     public LoginGUI() {
         ExitButton.addActionListener(e -> System.exit(0));
-        UsernameText.addCaretListener(e -> {
-            username = UsernameText.getText();
-        });
-        PasswordText.addCaretListener(e -> {
-            password = String.valueOf(PasswordText.getPassword());
-        });
+        UsernameText.addCaretListener(e -> username = UsernameText.getText());
+        PasswordText.addCaretListener(e -> password = String.valueOf(PasswordText.getPassword()));
         LoginButton.addActionListener(e -> {
             System.out.println(username);
             System.out.println(password);

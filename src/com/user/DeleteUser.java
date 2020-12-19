@@ -10,39 +10,17 @@ public class DeleteUser {
 
         Connection connection = null;
         PreparedStatement statement = null;
-
         String sql = "delete from user where `index` = ?";
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection("jdbc:mysql:///user_management_system?useSSL=false&characterEncoding=utf8", "root", "/*-w123l/*-");
             statement = connection.prepareStatement(sql);
             statement.setObject(1, index);
-            int count = statement.executeUpdate();
-
-            if (count > 0) {
-                System.out.println("DeleteSuccess");
-            } else {
-                System.out.println("DeleteFalse");
-            }
-
+            statement.executeUpdate();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
-            if (statement != null) {
-                try {
-                    statement.close();
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            }
+            ChangeUser.closeConnectionAndStatement(connection, statement);
         }
     }
 }
