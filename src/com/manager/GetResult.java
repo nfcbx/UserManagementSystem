@@ -25,8 +25,6 @@ public class GetResult {
                 String password = result.getString("password");
                 System.out.println(id + "\t" + username + "\t" + password);
             }
-
-
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {

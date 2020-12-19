@@ -9,7 +9,7 @@ public class LoginGUI {
     String password = null;
     private JButton LoginButton;
     private JButton ExitButton;
-    private JPanel 用户登录;
+    public JPanel managerLogin;
     private JPanel LoginText;
     private JPanel UsernamePanel;
     private JPanel UsernameLabelPanel;
@@ -21,16 +21,15 @@ public class LoginGUI {
     private JPanel PasswordTextPanel;
     private JPanel LoginButtonPanel;
     private JPanel ExitButtonPanel;
+    static JFrame frame = new JFrame("管理员登录");
 
     public LoginGUI() {
         ExitButton.addActionListener(e -> System.exit(0));
         UsernameText.addCaretListener(e -> {
             username = UsernameText.getText();
-//                System.out.println(username);
         });
         PasswordText.addCaretListener(e -> {
             password = String.valueOf(PasswordText.getPassword());
-//                System.out.println(password);
         });
         LoginButton.addActionListener(e -> {
             System.out.println(username);
@@ -38,6 +37,8 @@ public class LoginGUI {
             if ((username != null && password != null) && ((username.length() != 0) && (password.length() != 0))) {
                 if (IsLogin.isLogin(username, password)) {
                     JOptionPane.showInternalMessageDialog(null, "登录成功");
+                    frame.dispose();
+                    UserGUI.user();
                 } else {
                     JOptionPane.showInternalMessageDialog(null, "用户名或密码错误", "False", JOptionPane.ERROR_MESSAGE);
                 }
@@ -50,9 +51,8 @@ public class LoginGUI {
         });
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("用户登录");
-        frame.setContentPane(new LoginGUI().用户登录);
+    public static void login() {
+        frame.setContentPane(new LoginGUI().managerLogin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(450, 250);
         frame.setLocationRelativeTo(null);

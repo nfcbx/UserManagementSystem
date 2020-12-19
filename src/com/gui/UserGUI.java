@@ -121,7 +121,7 @@ public class UserGUI {
         });
     }
 
-    public static void main(String[] args) {
+    public static void user() {
         JFrame frame = new JFrame("用户管理");
         frame.setContentPane(new UserGUI().user);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
